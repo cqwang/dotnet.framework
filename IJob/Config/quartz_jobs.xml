@@ -1,0 +1,38 @@
+﻿<job-scheduling-data xmlns="http://quartznet.sourceforge.net/JobSchedulingData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+  <processing-directives>
+    <overwrite-existing-data>true</overwrite-existing-data>
+  </processing-directives>
+  <schedule>
+    
+    <!--job节点定义具体的作业-->
+    <job>
+      <!--作业名称，同一个group中不能相同-->
+      <name>TestJob</name>
+      <!--作业所属分组-->
+      <group>TestGroup</group>
+      <!--作业描述-->
+      <description>测试Demo</description>
+      <!--作业类型，格式：实现了IJob接口的包含完整命名空间的类名,程序集名称-->
+      <job-type>Cqwang.BackEnd.CSharp.Job.TestJob, Cqwang.BackEnd.CSharp.Job</job-type>
+      <!--默认为true-->
+      <durable>true</durable>
+      <!--默认为false-->
+      <recover>false</recover>
+    </job>
+
+    <trigger>
+      <cron>
+        <!--触发器名称，同一个分组中的名称必须不同-->
+        <name>TestJobTrigger</name>
+        <!--触发器分组-->
+        <group>TestTriggerGroup</group>
+        <!--要调度的作业名称，该job-name必须和对应job节点中的name完全相同-->
+        <job-name>TestJob</job-name>
+        <!--要调度的作业所属分组，该值必须和job中的group完全相同-->
+        <job-group>TestGroup</job-group>
+        <!--cron表达式-->
+        <cron-expression>0/30 * * * * ?</cron-expression><!--每30秒执行一次-->
+      </cron>
+    </trigger>
+  </schedule>
+</job-scheduling-data>
